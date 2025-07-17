@@ -79,18 +79,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgresql://myportfolio_01mj_user:zh0QBNUQiUZ9KmAgHI4X0mTfIv6PCjE6@dpg-d1n0t0emcj7s73bftgg0-a.oregon-postgres.render.com/myportfolio_01mj')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         os.environ.get('DATABASE_URL', 'postgresql://myportfolio_01mj_user:zh0QBNUQiUZ9KmAgHI4X0mTfIv6PCjE6@dpg-d1n0t0emcj7s73bftgg0-a.oregon-postgres.render.com/myportfolio_01mj')
+#     )
+# }
 
 
 # Password validation
