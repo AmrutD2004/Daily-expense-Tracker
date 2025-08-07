@@ -32,7 +32,7 @@ const ChangePassword = () => {
         }
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/change_password/${userId}/`, {
+            const response = await fetch(`https://daily-expense-tracker-2i0e.onrender.com/api/change_password/${userId}/`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

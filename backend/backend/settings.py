@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-48)t2k_kdi@j^xdfibn9i0*rd7bux%axhc52lu2q-z^ulva5bf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["daily-expense-tracker-2i0e.onrender.com","127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -79,18 +79,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get('DATABASE_URL', 'postgresql://myportfolio_01mj_user:zh0QBNUQiUZ9KmAgHI4X0mTfIv6PCjE6@dpg-d1n0t0emcj7s73bftgg0-a.oregon-postgres.render.com/myportfolio_01mj')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         os.environ.get('DATABASE_URL', 'postgresql://myportfolio_01mj_user:zh0QBNUQiUZ9KmAgHI4X0mTfIv6PCjE6@dpg-d1n0t0emcj7s73bftgg0-a.oregon-postgres.render.com/myportfolio_01mj')
+#     )
+# }
 
 
 # Password validation

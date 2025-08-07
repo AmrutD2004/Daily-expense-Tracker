@@ -7,6 +7,9 @@ import { MdError } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { CSVLink } from 'react-csv'
+import { Pie } from 'react-chartjs-2'
+import { ArcElement, Chart, Tooltip, Legend } from 'chart.js';
 
 
 const ExpenseReport = () => {
@@ -45,14 +48,14 @@ const ExpenseReport = () => {
             const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
             pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
-            pdf.save(`Expense_Report_${fromDate}_to_${toDate}.pdf`);
+            pdf.save(`Expense_Report_${fromDate}_to_${toDate}.pdf ${pieData}`);
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/search_expense/${userId}/?from=${fromDate}&to=${toDate}`);
+            const response = await fetch(`https://daily-expense-tracker-2i0e.onrender.com/api/search_expense/${userId}/?from=${fromDate}&to=${toDate}`);
             const data = await response.json();
             setExpenses(data.expenses || []);
             setGrandTotal(data.total || 0);
@@ -60,6 +63,25 @@ const ExpenseReport = () => {
             console.error('Error:', error);
             toast.error('Something went wrong');
         }
+    };
+
+    Chart.register(ArcElement, Tooltip, Legend);
+    const pieData = {
+        labels: expenses.map(exp => exp.ExpenseItem),
+        datasets: [
+            {
+                data: expenses.map(exp => parseFloat(exp.ExpenseCost)),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)',
+                ],
+                borderWidth: 1,
+            },
+        ],
     };
 
     return (
@@ -206,15 +228,22 @@ const ExpenseReport = () => {
             </div>
 
             {/* PDF Download Button */}
+            
+
+            <ToastContainer />
+            <div className='mt-3 mx-auto' style={{ height: 400, width: 400 }}>
+                <h4 className='text-center'>Expense Distribution</h4>
+                <Pie data={pieData} />
+            </div>
             {expenses.length > 0 && (
-                <div className="mt-3 text-center">
+                <div className="mt-5 text-center d-flex align-items-center justify-content-center">
                     <button onClick={downloadPDF} className="btn btn-danger">
                         Download PDF Report
                     </button>
+                    <p className='m-2 lead '>OR</p>
+                    <CSVLink filename='ExpenseReport' data={expenses} className='text-white bg-primary ms-2 p-2 rounded ' style={{textDecoration:'none'}}>Export CSV</CSVLink>
                 </div>
             )}
-
-            <ToastContainer />
         </div>
     );
 };

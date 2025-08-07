@@ -11,6 +11,6 @@ class UserDetails(models.Model):
 class Expense(models.Model):
     UserId = models.ForeignKey(UserDetails,on_delete=models.CASCADE)
     ExpenseItem = models.CharField(max_length=75)
-    ExpenseCost = models.CharField(max_length=75)
+    ExpenseCost = models.DecimalField(max_digits=75, decimal_places=2)
     ExpenseDate = models.DateField(null=True, blank=True)
     NoteDate = models.DateTimeField(auto_now_add=True)

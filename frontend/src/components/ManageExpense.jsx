@@ -31,7 +31,7 @@ const ManageExpense = () => {
 
     const fetchExpenses = async (userId) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/manage_expense/${userId}`)
+            const response = await fetch(`https://daily-expense-tracker-2i0e.onrender.com/api/manage_expense/${userId}`)
             const data = await response.json();
             setExpenses(data);
         }
@@ -42,7 +42,7 @@ const ManageExpense = () => {
 
     const handleUpdate = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/update_expense/${editExpense.id}/`, {
+            const response = await fetch(`https://daily-expense-tracker-2i0e.onrender.com/api/update_expense/${editExpense.id}/`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' }, // FIXED
                 body: JSON.stringify(editExpense)
@@ -64,7 +64,7 @@ const ManageExpense = () => {
     const handleDelete = async (expenseId) => {
         if(window.confirm('Are you sure you want to delete this expense?')){
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/delete_expense/${expenseId}/`, {
+                const response = await fetch(`https://daily-expense-tracker-2i0e.onrender.com/api/delete_expense/${expenseId}/`, {
                     method: 'DELETE'
                 })
                 if (response.ok) {
